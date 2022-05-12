@@ -1,0 +1,19 @@
+Costruzione di una base di dati per permettere ad all'azienda CarSpecialist
+la gestione della vendite di veicoli.
+I veicoli con cui CarSpecialist lavora sono identificati dal numero di telaio, 
+targa (in caso di immatriclazione) ed anno (CarSpecialist è affiliato
+con i più grandi costrutti e offre per loro il servizio di vendita di veicolo). 
+La vendita viene effettua sia online
+che nelle sedi e il cliente è identificato da CF, nome, cognome, residenza nel caso in si tratti
+di una persona, da nome, CF e PIVA nel caso si tratti di un'azienda 
+CarSpecialist è dotata di varie sedi nel territorio (italiane e non) le quali
+sono identificate da nazione, cap, città e via.
+Le sedi possono essere dotate di officine indipendenti apposite dove poter 
+effettuare la manutenzione di veicoli (gratuita per i primi 2 anni dopo la vendita).
+Il personale che lavora per CarSpecialist è identificato da CF, nome, cognome, residenza, 
+data inizio (ed eventuale fine) del rapporto lavorativo e tipo di contratto (apprendista, tempo 
+determinato...).
+
+.. aggiungere resto della descrizione ..
+
+ 
