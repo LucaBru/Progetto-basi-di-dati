@@ -1,19 +1,28 @@
-Costruzione di una base di dati per permettere ad all'azienda CarSpecialist
-la gestione della vendite di veicoli.
-I veicoli con cui CarSpecialist lavora sono identificati dal numero di telaio, 
-targa (in caso di immatriclazione) ed anno (CarSpecialist è affiliato
-con i più grandi costrutti e offre per loro il servizio di vendita di veicolo). 
-La vendita viene effettua sia online
-che nelle sedi e il cliente è identificato da CF, nome, cognome, residenza nel caso in si tratti
-di una persona, da nome, CF e PIVA nel caso si tratti di un'azienda 
+Costruzione di una base di dati per l'azienda CarSpecialist la quale si occupa di vendita di veicoli.
+I veicoli venduti da CarSpecialist sono identificati dal numero di telaio, anno e dal prezzo; possono essere:
+ - veicoli nuovi (l'azienda è affiliata ai più grandi costruttori e offre loro un servizio di vendita)
+ - veicoli usati (distinti in usati e KM0)
+Nel caso in cui i veicoli siano usati è di interesse la targa.
+I veicoli hanno un modello e degli optional:
+ - optional di base
+ - option aggiuntivi
+Gli optional sono identificati da nome, fornitore e costo.
+La vendita viene effettua sia online che nelle sedi è identificata da data, veicolo venduto, sede di vendita 
+(impostata a  NULL nel caso in cui si tratti di vendita online), venditore ed acquirente.
+Il cliente è identificato da CF, nome, cognome, residenza nel caso in cui si tratti di una persona e da nome, 
+CF e PIVA nel caso si tratti di un'azienda. 
+Il venditore è un dipendente di CarSpecialist che lavora presso una sede e ci interessano nome, cognome, CF
+residenza ed anno assunzione.
+L'azienda ha altri tipi di dipendenti come manager e meccanici i quali hanno dei valori generici come CF, nome
+cognome, CF residenza, anno assunzione e tipo di contratto.
+CarSpecialist vuole mantenere uno storico di tutti i suoi dipendenti.
 CarSpecialist è dotata di varie sedi nel territorio (italiane e non) le quali
 sono identificate da nazione, cap, città e via.
-Le sedi possono essere dotate di officine indipendenti apposite dove poter 
-effettuare la manutenzione di veicoli (gratuita per i primi 2 anni dopo la vendita).
-Il personale che lavora per CarSpecialist è identificato da CF, nome, cognome, residenza, 
-data inizio (ed eventuale fine) del rapporto lavorativo e tipo di contratto (apprendista, tempo 
-determinato...).
+Le sedi sono composte da concessionari e possono avere delle officine indipendenti apposite 
+(le quali effettuano interventi sulle vetture dei quali vogliamo sapere data, ore impiegate e meccanici coinvolti) 
+dove poter effettuare la manutenzione di veicoli prima e dopo la vendita: 
+in quest'ultimo caso risulta essere gratuita per i primi 2 anni dopo la vendita.
+Entrambi gli 'edifici' devono essere dotati di un manager, un numero e email.
 
-.. aggiungere resto della descrizione ..
 
  
