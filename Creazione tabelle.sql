@@ -86,7 +86,8 @@ CREATE TABLE Veicolo  (
     FOREIGN KEY (Modello) REFERENCES Modello(Nome) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
-CREATE INDEX idx_Veicolo ON Veicolo USING hash (Telaio);
+CREATE INDEX idx_VTelaio ON Veicolo USING hash (Telaio);
+CREATE INDEX idx_VPrezzo ON Veicolo (Prezzo);
 
 CREATE TABLE Veicolo_immatricolato (
 	Telaio VARCHAR(17) PRIMARY KEY,
@@ -96,30 +97,27 @@ CREATE TABLE Veicolo_immatricolato (
 );
 
 CREATE TABLE Optional (
-	Nome VARCHAR(50) PRIMARY KEY,
-	Prezzo INT NOT NULL,
-	Categoria VARCHAR(50),
+	Codice VARCHAR(15) PRIMARY KEY,
+	Categoria VARCHAR(50) NOT NULL,
 	Fornitore VARCHAR(50) NOT NULL
 );
 
 CREATE TABLE Optional_base (
 	Modello VARCHAR(30),
-	Optional VARCHAR(30),
+	Optional VARCHAR(15),
 	PRIMARY KEY(Modello, Optional),
 	FOREIGN KEY (Modello) REFERENCES Modello(Nome) ON DELETE CASCADE ON UPDATE CASCADE,
-	FOREIGN KEY (Optional) REFERENCES Optional(Nome) ON DELETE CASCADE ON UPDATE CASCADE
+	FOREIGN KEY (Optional) REFERENCES Optional(Codice) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE TABLE Optional_Aggiuntivi (
 	Veicolo VARCHAR (17),
-	Optional VARCHAR (30),
+	Optional VARCHAR (15),
 	Prezzo DOUBLE PRECISION NOT NULL,
 	PRIMARY KEY (Veicolo, Optional),
 	FOREIGN KEY (Veicolo) REFERENCES Veicolo(Telaio) ON DELETE CASCADE ON UPDATE CASCADE,
-	FOREIGN KEY (Optional) REFERENCES Optional(Nome) ON DELETE CASCADE ON UPDATE CASCADE
+	FOREIGN KEY (Optional) REFERENCES Optional(Codice) ON DELETE CASCADE ON UPDATE CASCADE
 );
-
-CREATE INDEX idx_Veicolo_immatricolato ON Veicolo_immatricolato (Prezzo);
 
 CREATE TABLE Intervento (
 	ID VARCHAR PRIMARY KEY,

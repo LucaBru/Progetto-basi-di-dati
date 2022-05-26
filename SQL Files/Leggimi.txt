@@ -1,0 +1,10 @@
+Ordine di import a causa delle chiavi esterne:
+1) Modello
+2) Veicolo
+3) Veicolo Immatricolato
+4) Optional
+5) Optional di base
+6) Optional aggiuntivi
+7) Sede
+8) Intervento
+9) Fattura
