@@ -41,6 +41,8 @@ CREATE TABLE Sede (
 	Città VARCHAR(50) NOT NULL,
 	Via VARCHAR(50) NOT NULL,
     Civico VARCHAR(8) NOT NULL,
+	Email VARCHAR(50) NOT NULL,
+	Numero INT(15),
     UNIQUE (Tipo, Città, Via, Civico)	
 );
 
