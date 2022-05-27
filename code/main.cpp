@@ -62,16 +62,10 @@ void printQuery (PGconn* connection, const char query[]) {
         PQclear(res);
         return;
     }
-    int tuple = PQntuples(res);
-    int campi = PQnfields(res);
-    for(int i=0; i < campi; ++i){
-        cout << PQfname(res,i) << "\t\t";
-    }
-    cout << endl;
-    for(int i=0; i < tuple;++i){
-        for (int j = 0; j < campi; ++j) {
-            cout << PQgetvalue(res, i, j) << "\t\t";
-        }
-        cout << endl;
-    }
+    PQprintOpt options = {0};
+    options.header = 1;
+    options.align = 1;
+    options.fieldSep = " | ";
+    PQprint(stdout, res, &options);
+    PQclear(res);
 }
