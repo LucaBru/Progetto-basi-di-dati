@@ -42,7 +42,7 @@ CREATE TABLE Sede (
 	Via VARCHAR(50) NOT NULL,
     Civico VARCHAR(8) NOT NULL,
 	Email VARCHAR(50) NOT NULL,
-	Numero INT(15),
+	Numero VARCHAR(13) NOT NULL,
     UNIQUE (Tipo, Città, Via, Civico)	
 );
 
