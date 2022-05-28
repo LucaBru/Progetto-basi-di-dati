@@ -6,8 +6,8 @@
 
 #define PG_HOST "localhost" //oppure "localhost" o "postgresql"
 #define PG_USER "postgres" //il vostro nome utente
-#define PG_DB "cesconmatteo" //il nome del database
-#define PG_PASS "Prog2.Student" //la vostra password
+#define PG_DB "postgres" //il nome del database
+#define PG_PASS "BasiDiDati" //la vostra password
 #define PG_PORT 5432
 
 using std::cin;
@@ -22,11 +22,12 @@ int main () {
     char connInfo[250];
     sprintf(connInfo, "user=%s password=%s dbname=%s host=%s port=%d", PG_USER,PG_PASS , PG_DB , PG_HOST , PG_PORT);
     PGconn* connection;
+
     connection = PQconnectdb (connInfo);
     if (PQstatus(connection) != CONNECTION_OK){
         cout<<"Connection error"<<PQerrorMessage(connection);
         PQfinish(connection);
-        exit(1);
+        //exit(1);
     }
     
     int option = -1;
