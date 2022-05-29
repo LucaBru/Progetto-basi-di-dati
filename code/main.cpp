@@ -2,12 +2,14 @@
 #include <iostream>
 #include <fstream>
 #include <vector>
+#include <string>
+#include <sstream>
 #include "dependencies/include/libpq-fe.h"
 
-#define PG_HOST "localhost" //oppure "localhost" o "postgresql"
-#define PG_USER "postgres" //il vostro nome utente
-#define PG_DB "cesconmatteo" //il nome del database
-#define PG_PASS "Prog2.Student" //la vostra password
+#define PG_HOST "localhost"
+#define PG_USER "postgres"
+#define PG_DB "cesconmatteo"
+#define PG_PASS "Prog2.Student"
 #define PG_PORT 5432
 
 using std::cin;
@@ -28,7 +30,21 @@ int main () {
         PQfinish(connection);
         exit(1);
     }
-    
+    char* query[9] = {
+        "select Nazione, count(distinct Veicolo) as Veicoli_venduti from Vendita V, Sede S where V.Concessionario = S.ID and Data between '2021-01-01' and '2022-01-01' group by Nazione order by Veicoli_venduti desc",
+        "create or replace view IDOR as select Intervento, Dipendente, Ore_Impiegate as Ore, Retribuzione_oraria from Fattura F, Intervento_Dipendente I_D, Impiego_corrente I_C, Contratto C where F.Intervento = I_D.ID and I_D.CF = I_C.Dipendente and I_C.Contratto = C.ID and intervento = '",
+        "';select Intervento, sum(Ore*Retribuzione_oraria) from IDOR group by Intervento",
+        "select Veicolo, Concessionario, Acquirente from Vendita, Veicolo where Vendita.Veicolo = Veicolo.Telaio and Prezzo = (Select Max(Prezzo) from Vendita, Veicolo where Vendita.Veicolo = Veicolo.telaio)",
+        
+        
+        "create or replace view Optional_aggiuntivi_modello as select Optional, Modello, count(Optional) as Occorrenze from Optional_aggiuntivi O, Veicolo V where O.Veicolo = V.Telaio group by Modello, Optional; select Optional from Optional_aggiuntivi_Modello where modello = '",
+        "' and Occorrenze = (select max(Occorrenze) as Numero_installazioni from Optional_aggiuntivi_modello where Modello = '",
+        "')",
+        
+        
+        "select Nazione, count(*) as NumeroImpiegati from Sede as S, Impiego_corrente as I where I.Sede = S.ID group by Nazione order by NumeroImpiegati desc",
+        "drop view if exists Dip_tot_per_sede; drop view if exists Dipendenti_correnti_per_sede; create view Dipendenti_correnti_per_sede as  select Sede, count(distinct Dipendente) as Num_dip from Impiego_corrente group by Sede; drop view if exists Dipendenti_passati_per_sede; create view Dipendenti_passati_per_sede as select Sede, count(distinct Dipendente) as Num_dip from Impiego_passato group by Sede; create view Dip_tot_per_sede as select Sede, sum(Num_dip) as Numero_dipendenti from (select * from Dipendenti_correnti_per_sede union select * from Dipendenti_passati_per_sede) as Unione_dipendenti group by Sede; select * from Dip_tot_per_sede where Numero_dipendenti = (Select max(Numero_dipendenti)from Dip_tot_per_sede)"
+    };
     int option = -1;
     do {
         cout << "Seleziona la query inserendo un numero: \n";
@@ -43,37 +59,35 @@ int main () {
         cout << endl;
         switch (option) {
             case 1: {
-                execQuery (connection, "select Nazione, count(distinct Veicolo) as Veicoli_venduti from Vendita V, Sede S where V.Concessionario = S.ID and Data between '2021-01-01' and '2022-01-01' group by Nazione order by Veicoli_venduti desc");
+                execQuery (connection, query[0]);
                 break;
             }
             case 2: {
-                string par, tmp;
-                string pre = "create or replace view IDOR as select Intervento, Dipendente, Ore_Impiegate as Ore, Retribuzione_oraria from Fattura F, Intervento_Dipendente I_D, Impiego_corrente I_C, Contratto C where F.Intervento = I_D.ID and I_D.CF = I_C.Dipendente and I_C.Contratto = C.ID and intervento = '";
-                string post = "';select Intervento, sum(Ore*Retribuzione_oraria) from IDOR group by Intervento";
+                string buffer, par1, tmp1(query[1]), tmp2(query[2]);
                 cout << "Inserire il numero di fattura: ";
-                cin >> par;
-                tmp = pre + par + post;
-                execQuery (connection, tmp.c_str());
+                cin >> par1;
+                buffer = tmp1 + par1 + tmp2;
+                execQuery (connection, buffer.c_str());
                 break;
             }
             case 3: {
-                execQuery (connection, "select Veicolo, Concessionario, Acquirente from Vendita, Veicolo where Vendita.Veicolo = Veicolo.Telaio and Prezzo = (Select Max(Prezzo) from Vendita, Veicolo where Vendita.Veicolo = Veicolo.telaio)");
+                execQuery (connection, query[3]);
                 break;
             }
             case 4: {
-                string mod, tmp;
+                string buffer, par, tmp1(query[4]), tmp2(query[5]), tmp3(query[6]);
                 cout << "Inserire il modello: ";
-                cin >> mod;
-                tmp = "create or replace view Optional_aggiuntivi_modello as select Optional, Modello, count(Optional) as Occorrenze from Optional_aggiuntivi O, Veicolo V where O.Veicolo = V.Telaio group by Modello, Optional; select Optional from Optional_aggiuntivi_Modello where modello = '" + mod + "' and Occorrenze = (select max(Occorrenze) as Numero_installazioni from Optional_aggiuntivi_modello where Modello = '" + mod + "')";
-                execQuery (connection, tmp.c_str());
+                cin >> par;
+                buffer = tmp1 + par + tmp2 + par + tmp3;
+                execQuery (connection, buffer.c_str());
                 break;
             }
             case 5: {
-                execQuery (connection, "select Nazione, count(*) as NumeroImpiegati from Sede as S, Impiego_corrente as I where I.Sede = S.ID group by Nazione order by NumeroImpiegati desc");
+                execQuery (connection, query[7]);
                 break;
             }
             case 6: {
-                execQuery (connection, "drop view if exists Dip_tot_per_sede; drop view if exists Dipendenti_correnti_per_sede; create view Dipendenti_correnti_per_sede as  select Sede, count(distinct Dipendente) as Num_dip from Impiego_corrente group by Sede; drop view if exists Dipendenti_passati_per_sede; create view Dipendenti_passati_per_sede as select Sede, count(distinct Dipendente) as Num_dip from Impiego_passato group by Sede; create view Dip_tot_per_sede as select Sede, sum(Num_dip) as Numero_dipendenti from (select * from Dipendenti_correnti_per_sede union select * from Dipendenti_passati_per_sede) as Unione_dipendenti group by Sede; select * from Dip_tot_per_sede where Numero_dipendenti = (Select max(Numero_dipendenti)from Dip_tot_per_sede)");
+                execQuery (connection, query[8]);
                 break;
             }
         }
@@ -87,8 +101,7 @@ void execQuery (PGconn* connection, const char query[]) {
     res = PQexec (connection, query);
     if (PQresultStatus(res) != PGRES_TUPLES_OK) {
         cout << "Result error: " << PQerrorMessage(connection) << endl << endl;
-        if (res != nullptr)
-            PQclear(res);
+        PQclear(res);
         return;
     }
     PQprintOpt options = {0};
