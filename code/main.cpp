@@ -1,4 +1,4 @@
-#include <cstdio>
+ #include <cstdio>
 #include <iostream>
 #include <fstream>
 #include <vector>
@@ -98,7 +98,7 @@ int main () {
 
 void execQuery (PGconn* connection, const char query[]) {
     PGresult* res;
-    res = PQexec (connection, query);
+    res =  ;
     if (PQresultStatus(res) != PGRES_TUPLES_OK) {
         cout << "Result error: " << PQerrorMessage(connection) << endl << endl;
         PQclear(res);
