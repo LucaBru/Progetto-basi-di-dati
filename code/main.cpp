@@ -31,7 +31,7 @@ int main () {
         exit(1);
     }
     char* query[9] = {
-        "select Nazione, count(distinct Veicolo) as Veicoli_venduti from Vendita V, Sede S where V.Concessionario = S.ID and Data between '2021-01-01' and '2022-01-01' group by Nazione order by Veicoli_venduti desc",
+        "select Nazione, count(distinct Veicolo) as Veicoli_venduti from Vendita V, Sede S where V.Concessionario = S.ID and Data between '2021-01-01' and '2021-12-31' group by Nazione order by Veicoli_venduti desc",
         "create or replace view IDOR as select Intervento, Dipendente, Ore_Impiegate as Ore, Retribuzione_oraria from Fattura F, Intervento_Dipendente I_D, Impiego_corrente I_C, Contratto C where F.Intervento = I_D.ID and I_D.CF = I_C.Dipendente and I_C.Contratto = C.ID and intervento = '",
         "';select Intervento, sum(Ore*Retribuzione_oraria) from IDOR group by Intervento",
         "select Veicolo, Concessionario, Acquirente from Vendita, Veicolo where Vendita.Veicolo = Veicolo.Telaio and Prezzo = (Select Max(Prezzo) from Vendita, Veicolo where Vendita.Veicolo = Veicolo.telaio)",
@@ -48,7 +48,7 @@ int main () {
     int option = -1;
     do {
         cout << "Seleziona la query inserendo un numero: \n";
-        cout << "1- Numero di veicoli venduti per nazione dal 2021 al 2022\n";
+        cout << "1- Numero di veicoli venduti per nazione nel 2021\n";
         cout << "2- Calcolo del costo della mano d’opera per l’esecuzione di un determinato intervento a partire dalla fattura\n";
         cout << "3- Acquirente, veicolo, sede della vendita più costosa della società\n";
         cout << "4- Optional aggiuntivo maggiormente desiderato per un determinato modello\n";
