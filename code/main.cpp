@@ -52,7 +52,7 @@ int main () {
         cout << "2- Calcolo del costo della mano d’opera per l’esecuzione di un determinato intervento a partire dalla fattura\n";
         cout << "3- Acquirente, veicolo, sede della vendita più costosa della società\n";
         cout << "4- Optional aggiuntivo maggiormente desiderato per un determinato modello\n";
-        cout << "5- Lista delle nazioni con più dipendenti\n";
+        cout << "5- Lista delle nazioni in ordine decrescente per numero di dipendenti\n";
         cout << "6- Sede con il maggior numero di dipendenti distinti nell’arco della sua storia\n";
         cout << "0- to exit\nInserire la scelta: ";
         cin >> option;
