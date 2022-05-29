@@ -98,7 +98,7 @@ int main () {
 
 void execQuery (PGconn* connection, const char query[]) {
     PGresult* res;
-    res =  ;
+    res =  PQexec (connection, query);
     if (PQresultStatus(res) != PGRES_TUPLES_OK) {
         cout << "Result error: " << PQerrorMessage(connection) << endl << endl;
         PQclear(res);
